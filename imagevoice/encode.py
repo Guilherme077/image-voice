@@ -18,18 +18,18 @@ def encodeMessage(message, imageUrl):
     print("A mensagem possui tamanho de ", len(messageBinary), " bits")
 
     # Inserir bits da mensagem na imagem
-    for bitIndex in len(messageBinary):
-        originalPixelImage = imagePixels[bitIndex] # Valor original do canal de cor do pixel (RGB)
-        bitMessage = messageBinary[bitIndex] # Bit que será registrado na imagem
+    for bitIndex in range(len(messageBinary)):
         
-        # Se o bit que será registrado é 0 e o valor do canal de cor da imagem é ímpar...
-        if(bitMessage == 0 and originalPixelImage % 2 != 0):
-            originalPixelImage += 1 # O valor do canal de cor deve ser par
+        bit = int(messageBinary[bitIndex]) # Bit que será registrado na imagem
+        original = imagePixels[bitIndex]
 
-        # Se o bit que será registrado é 1 e o valor do canal de cor da imagem é par...
-        if(bitMessage == 1 and originalPixelImage % 2 == 0):
-            originalPixelImage += 1 # O valor do canal de cor deve ser ímpar
-
+        if bit == 0:
+            if original % 2 != 0:
+                imagePixels[bitIndex] -= 1
+        else:
+            if original % 2 == 0:
+                # se for 255, não pode somar 1, então subtrai
+                imagePixels[bitIndex] = original + 1 if original < 255 else original - 1
     # Converter os valores para arquivo de imagem e salvar
     imageEncoded = imagePixels.reshape(imageArrayRGB.shape)
     imageWithMessage = Image.fromarray(imageEncoded.astype('uint8'))
