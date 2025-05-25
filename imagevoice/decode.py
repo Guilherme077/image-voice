@@ -10,11 +10,8 @@ def decodeFromImage(imageUrl):
     decodedMessageBits = ""
     endMessageCode = stringToBin("_!IV!_")
     
-    for pixelIndex in range(len(imagePixels)):
-        if(imagePixels[pixelIndex] % 2 == 0):
-            decodedMessageBits += str(0)
-        else:
-            decodedMessageBits += str(1)
+    for pixel in imagePixels:
+        decodedMessageBits += str(pixel & 1)  # Pega o último bit
         if(len(decodedMessageBits) > len(endMessageCode)):
             if(decodedMessageBits[-len(endMessageCode):] == endMessageCode[-len(endMessageCode):]):
                 break
