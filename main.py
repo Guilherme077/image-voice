@@ -1,5 +1,6 @@
-from imagevoice.tools import stringToBin
+from imagevoice.encode import encodeMessage
 
 message = input("Digite uma mensagem: ")
-messageBin = stringToBin(message)
-print("A mensagem, em binário (8 bits) é ", messageBin)
+imageUrl = input("Digite o nome da imagem (com tipo de arquivo): ")
+
+encodeMessage(message, imageUrl)
