@@ -1,10 +1,12 @@
 from imagevoice.encode import encodeMessage
 from imagevoice.decode import decodeFromImage
+from imagevoice.tools import textToSpeech
 
 print("-----IMAGE VOICE-----")
 print("1 - Codificar Mensagem em Imagem")
 print("2 - Decodificar Imagem")
 option = input("Digite o número da opção desejada: ")
+print()
 
 if option == "1":
     imageUrl = input("Digite o nome da imagem (com tipo de arquivo): ")
@@ -13,7 +15,10 @@ if option == "1":
     encodeMessage(message, imageUrl, imageOutputUrl)
 elif option == "2":
     imageUrl = input("Digite o nome da imagem (com tipo de arquivo): ")
-    print(decodeFromImage(imageUrl))
+    decodedText = decodeFromImage(imageUrl)
+    print(decodedText)
+    textToSpeech(decodedText)
+
 
 else:
     print("Insira uma opção válida!")
