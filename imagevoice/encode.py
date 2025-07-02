@@ -3,7 +3,7 @@ import numpy
 from imagevoice.tools import stringToBin
 
 # Insere uma mensagem em uma imagem
-def encodeMessage(message, imageUrl):
+def encodeMessage(message, imageUrl, imageOutputUrl):
 
     # Processamento da mensagem
     message += "_!IV!_" # Adiciona o código que identifica o fim da mensagem
@@ -25,4 +25,4 @@ def encodeMessage(message, imageUrl):
     # Converter os valores para arquivo de imagem e salvar
     imageEncoded = imagePixels.reshape(imageArrayRGB.shape)
     imageWithMessage = Image.fromarray(imageEncoded.astype('uint8'))
-    imageWithMessage.save("encoded_img.png")
+    imageWithMessage.save(imageOutputUrl)
