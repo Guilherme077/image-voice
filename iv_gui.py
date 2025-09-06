@@ -5,6 +5,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 
 img_path = ''
+img_out_path = ''
 
 def selectFile():
     global img_path
@@ -13,10 +14,21 @@ def selectFile():
         label.configure(text=f"Imagem Selecionada: {file_path}")
         img_path = file_path
 
-def encodeBtn():
-    encodeMessage(messageToEncode.get(), img_path,'nout.png')
-    messagebox.showinfo("Concluído", "A mensagem foi gravada na imagem e salva como out.png. O arquivo de imagem original NÃO foi alterado.", icon='info')
+def saveFile():
+    global img_out_path
+    file_path = filedialog.asksaveasfilename(title="Salvar imagem PNG - ImageVoice", defaultextension=".png", filetypes=[("png", "*.png")])
+    if file_path:
+        img_out_path = file_path
+        
 
+def encodeBtn():
+    try:
+        saveFile()
+        
+        encodeMessage(messageToEncode.get(), img_path, img_out_path)
+        messagebox.showinfo("Concluído", f"A mensagem foi gravada na imagem e salva em {img_out_path}.", icon='info')
+    except:
+        messagebox.showinfo("Erro encontrado", "Um erro foi encontrado ao inserir/salvar a mensagem na imagem! Tente novamente ou reporte o problema.", icon='error')
 def decodeBtn():
     messageDecoded = decodeFromImage(img_path)
     messagebox.showinfo("Mensagem Decodificada", messageDecoded)
