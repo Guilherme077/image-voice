@@ -1,5 +1,6 @@
 from imagevoice.encode import encodeMessage
 from imagevoice.decode import decodeFromImage
+from imagevoice.tools import textToSpeech
 import customtkinter as ctk
 from tkinter import filedialog
 from tkinter import messagebox
@@ -32,21 +33,25 @@ def encodeBtn():
 def decodeBtn():
     messageDecoded = decodeFromImage(img_path)
     messagebox.showinfo("Mensagem Decodificada", messageDecoded)
+def readTTS():
+    messageDecoded = decodeFromImage(img_path)
+    textToSpeech(messageDecoded)
 
 ctk.set_appearance_mode('system')
 window = ctk.CTk()
 window.title('ImageVoice GUI')
 window.geometry('700x500')
 
-button = ctk.CTkButton(window, text="Escolher Imagem", command=selectFile)
+button = ctk.CTkButton(window, text="Escolher Imagem",font=("Arial", 20), command=selectFile)
 button.pack(pady=20)
 
-label = ctk.CTkLabel(window,text='Nenhuma imagem selecionada!')
+label = ctk.CTkLabel(window,font=("Arial", 17),text='Nenhuma imagem selecionada!')
 label.pack(pady=30)
-messageToEncode = ctk.CTkEntry(window, placeholder_text='Mensagem')
+messageToEncode = ctk.CTkEntry(window,font=("Arial",20), width=300, placeholder_text='Mensagem')
 messageToEncode.pack(pady=10)
-ctk.CTkButton(window,text='Inserir mensagem',command=encodeBtn,font=("Arial", 20),fg_color="Green").pack(pady=20)
-ctk.CTkButton(window,text='Ler mensagem',command=decodeBtn,font=("Arial", 20),fg_color="Green").pack(pady=30)
+ctk.CTkButton(window,text='Inserir mensagem',command=encodeBtn,font=("Arial", 30),fg_color="Green").pack(pady=20)
+ctk.CTkButton(window,text='Ler mensagem',command=decodeBtn,font=("Arial", 30),fg_color="Green").pack(pady=30)
+#ctk.CTkButton(window,text='Ler mensagem (áudio)',command=readTTS,font=("Arial", 30),fg_color="Gray").pack(pady=30)
 
 
 window.mainloop()
